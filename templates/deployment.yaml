@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-Deployment
+  labels:
+    app: {{ .Chart.Name }}
+    demo: helm
+spec:
+  replicas: {{.Values.deployment.replicas}}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+      demo: helm
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+        demo: helm
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "nginx:{{ .Values.deployment.imageVersion}}"
